@@ -1,0 +1,74 @@
+CategoryController Documentation:-
+  ::-
+Overview
+The CategoryController class is a REST controller that provides endpoints for managing and retrieving product category information in an e-commerce system. It serves as the interface between the client (frontend or API consumer) and the backend service layer (CategoryServiceImpl), which handles the business logic.
+
+This controller is part of the NetCart application, supporting operations such as retrieving a single category by its name or fetching all available categories.
+
+Features
+Fetch category details by category name.
+Retrieve a list of all product categories.
+Logs request flow and responses for monitoring and debugging.
+Supports Cross-Origin Resource Sharing (CORS) for seamless integration with frontend applications.
+Endpoints
+1. Get Category by Name
+HTTP Method: GET
+Endpoint: /category
+Description:
+Fetches the details of a specific product category by its name.
+
+Request Parameters:
+name (String): The name of the category to be retrieved. This is passed as a query parameter.
+Response:
+Success (200 OK): Returns a CategoryOutputModel object containing category details.
+Failure (404 Not Found): Throws a CategoryNotFoundException if the category is not found.
+Example Request:
+GET /category?name=Electronics
+2. Get All Categories
+HTTP Method: GET
+Endpoint: /getallcategory
+Description:
+Retrieves a list of all available product categories.
+
+Response:
+Success (200 OK): Returns a list of CategoryOutputModel objects containing details of all categories.
+Example Request:
+GET /getallcategory
+Code Structure
+Class Annotations
+@RestController: Indicates that this class is a RESTful web service controller.
+@CrossOrigin("*"): Allows Cross-Origin requests from any domain to enable frontend-backend communication.
+Injected Dependencies
+@Autowired CategoryServiceImpl categoryService: Injects the CategoryServiceImpl to provide access to the service layer for category operations.
+Logging
+SLF4J Logger (LoggerFactory.getLogger(CategoryController.class)): Logs the start, end, and responses of each method for debugging and monitoring.
+Error Handling
+CategoryNotFoundException: A custom exception thrown when a requested category is not found in the system. This exception is typically handled globally in the application to return meaningful error messages to the API consumer.
+Class Diagram
+The CategoryController interacts with the following components:
+
+Service Layer (CategoryServiceImpl): Contains business logic for retrieving category data.
+Model Layer (CategoryOutputModel): Represents the structure of category data returned to the client.
+Exception Layer (CategoryNotFoundException): Handles scenarios where requested category data is unavailable.
+[Client/Frontend]
+      |
+      v
+[CategoryController]
+      |
+      v
+[CategoryServiceImpl]
+      |
+      v
+[Database or Data Source]
+Logging Details
+The class includes logging statements at key points:
+
+Start of a method: Logs when a method is invoked.
+Response data: Logs the response data before returning it.
+End of a method: Logs when a method execution is completed.
+Future Enhancements
+Add pagination and filtering for the /getallcategory endpoint.
+Implement role-based access control for secure access to category information.
+Extend error handling to cover edge cases such as invalid input formats.
+Conclusion
+The CategoryController provides a well-structured and easy-to-use API for managing categories in the NetCart application. Its integration with the service layer and use of standard REST principles ensure scalability and maintainability.
