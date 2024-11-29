@@ -1,0 +1,132 @@
+#OrderController - Documentation:-
+##Overview:-
+The OrderController class is a RESTful API controller in a Spring Boot application. It provides endpoints for managing orders in the e-commerce platform NetCart. This controller interacts with the service layer (OrderService) to handle the business logic and operations for placing, canceling, and retrieving orders.
+
+Purpose:-
+The primary purpose of this class is to:
+
+-> Facilitate communication between the client (frontend or other services) and the backend for order-related functionalities.
+->Implement RESTful API endpoints for common order operations.
+->Provide meaningful responses with proper HTTP status codes and data.
+->Log important information and errors for monitoring and debugging purposes.
+
+Functionalities:-
+This controller provides the following functionalities:
+
+Place Order:
+Allows a user to create a new order by providing order details and the user ID.
+Cancel Order:
+Enables a user to cancel an existing order using the order ID.
+Retrieve Orders by User:
+Retrieves all orders made by a specific user using their user ID.
+Annotations Used
+Class-Level Annotations
+@RestController: Declares the class as a RESTful web controller that handles HTTP requests and returns responses in JSON format.
+@CrossOrigin("*"): Enables Cross-Origin Resource Sharing (CORS) to allow requests from all domains.
+Method-Level Annotations
+@PostMapping: Maps HTTP POST requests to a method for creating resources.
+@PutMapping: Maps HTTP PUT requests to a method for updating resources.
+@GetMapping: Maps HTTP GET requests to a method for retrieving resources.
+@PathVariable: Binds URI path variables to method parameters.
+@RequestBody: Maps the HTTP request body to a Java object.
+Endpoints
+1. Place an Order
+URL: /makeorder/{userId}
+HTTP Method: POST
+Description: Creates a new order for a specified user.
+Request Parameters:
+userId (Path Variable): ID of the user placing the order.
+List<OrderInputModel> (Request Body): Details of the order being placed.
+Response: Returns a list of OrderInputModel objects representing the created orders with HTTP 200 (OK).
+Exceptions:
+UserNotFoundException: Thrown if the user ID does not exist.
+2. Cancel an Order
+URL: /cancelOrder/{orderId}
+HTTP Method: PUT
+Description: Cancels an existing order based on the order ID.
+Request Parameters:
+orderId (Path Variable): ID of the order to be canceled.
+Response: Returns an OrderOutputModel object representing the canceled order details with HTTP 200 (OK).
+Exceptions:
+OrderNotFoundException: Thrown if the order ID does not exist.
+3. Retrieve User Orders
+URL: /getAllOrders/{userId}
+HTTP Method: GET
+Description: Fetches all orders associated with a specific user.
+Request Parameters:
+userId (Path Variable): ID of the user whose orders are being retrieved.
+Response: Returns a list of OrderOutputModel objects representing the user's orders with HTTP 200 (OK).
+Exceptions:
+UserNotFoundException: Thrown if the user ID does not exist.
+Dependencies
+Spring Framework: Used for dependency injection (@Autowired) and REST controller functionalities.
+SLF4J: For structured and consistent logging.
+Custom Exceptions:
+UserNotFoundException: Indicates an invalid user ID.
+OrderNotFoundException: Indicates an invalid order ID.
+Models:
+OrderInputModel: Represents input data for creating an order.
+OrderOutputModel: Represents output data for an order's details.
+Logging
+SLF4J Logger is used to:
+
+Track the flow of requests and responses.
+Log method start and end for debugging.
+Record important data like created orders and canceled orders.
+Code Example with Comments
+Here’s how the OrderController methods are implemented:
+
+Place an Order
+@PostMapping("/makeorder/{userId}")
+public ResponseEntity<List<OrderInputModel>> makeOrder(
+        @RequestBody List<OrderInputModel> inputModels,
+        @PathVariable("userId") Integer userId) throws UserNotFoundException {
+
+    logger.info("makeOrder() method started");
+
+    // Service call to place a new order for the specified user.
+    List<OrderInputModel> order = orderService.makeOrder(inputModels, userId);
+
+    logger.info("Order created: {}", order);
+    logger.info("makeOrder() method ended");
+
+    // Return the list of created orders with HTTP 200 status.
+    return new ResponseEntity<>(order, HttpStatus.OK);
+}
+Cancel an Order
+@PutMapping("/cancelOrder/{orderId}")
+public ResponseEntity<OrderOutputModel> cancelOrder(
+        @PathVariable("orderId") Integer orderId) throws OrderNotFoundException {
+
+    logger.info("cancelOrder() method started");
+
+    // Service call to cancel the specified order.
+    OrderOutputModel canceledOrder = orderService.cancelOrder(orderId);
+
+    logger.info("Order canceled: {}", canceledOrder);
+    logger.info("cancelOrder() method ended");
+
+    // Return the canceled order details with HTTP 200 status.
+    return new ResponseEntity<>(canceledOrder, HttpStatus.OK);
+}
+Retrieve User Orders
+@GetMapping("/getAllOrders/{userId}")
+public ResponseEntity<List<OrderOutputModel>> getOrderByUserId(
+        @PathVariable("userId") Integer userId) throws UserNotFoundException {
+
+    logger.info("getOrderByUserId() method started");
+
+    // Service call to retrieve all orders for the specified user.
+    List<OrderOutputModel> orders = orderService.getOrderByUserId(userId);
+
+    logger.info("Orders retrieved: {}", orders);
+    logger.info("getOrderByUserId() method ended");
+
+    // Return the list of user's orders with HTTP 200 status.
+    return new ResponseEntity<>(orders, HttpStatus.OK);
+}
+Best Practices Followed
+RESTful Design: Clear endpoints with meaningful URLs.
+Separation of Concerns: The controller handles request processing while the service manages business logic.
+Proper Error Handling: Custom exceptions provide meaningful error messages.
+Structured Logging: SLF4J ensures consistent and informative logs.
