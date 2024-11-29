@@ -1,16 +1,20 @@
 CategoryController Documentation:-
-  ::-
-Overview
+
+Overview:-
+
 The CategoryController class is a REST controller that provides endpoints for managing and retrieving product category information in an e-commerce system. It serves as the interface between the client (frontend or API consumer) and the backend service layer (CategoryServiceImpl), which handles the business logic.
 
 This controller is part of the NetCart application, supporting operations such as retrieving a single category by its name or fetching all available categories.
 
-Features
-Fetch category details by category name.
-Retrieve a list of all product categories.
-Logs request flow and responses for monitoring and debugging.
-Supports Cross-Origin Resource Sharing (CORS) for seamless integration with frontend applications.
-Endpoints
+Features:-
+
+-> Fetch category details by category name.
+-> Retrieve a list of all product categories.
+-> Logs request flow and responses for monitoring and debugging.
+-> Supports Cross-Origin Resource Sharing (CORS) for seamless integration with frontend applications.
+
+Endpoints:-
+
 1. Get Category by Name
 HTTP Method: GET
 Endpoint: /category
@@ -19,11 +23,14 @@ Fetches the details of a specific product category by its name.
 
 Request Parameters:
 name (String): The name of the category to be retrieved. This is passed as a query parameter.
+
 Response:
 Success (200 OK): Returns a CategoryOutputModel object containing category details.
 Failure (404 Not Found): Throws a CategoryNotFoundException if the category is not found.
+
 Example Request:
 GET /category?name=Electronics
+
 2. Get All Categories
 HTTP Method: GET
 Endpoint: /getallcategory
@@ -31,11 +38,15 @@ Description:
 Retrieves a list of all available product categories.
 
 Response:
+
 Success (200 OK): Returns a list of CategoryOutputModel objects containing details of all categories.
+
 Example Request:
 GET /getallcategory
-Code Structure
-Class Annotations
+
+Code Structure:-
+Class Annotations:-
+
 @RestController: Indicates that this class is a RESTful web service controller.
 @CrossOrigin("*"): Allows Cross-Origin requests from any domain to enable frontend-backend communication.
 Injected Dependencies
