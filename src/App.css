@@ -1,40 +1,69 @@
+/* The following CSS styles a simple React app layout. 
+   It includes styles for the app container, logo, header, and links.
+   Additionally, it defines animations and responsive behavior for users 
+   with no motion preferences.
+*/
+
+/* Style the main container */
 .App {
-  text-align: center;
+  text-align: center; /* Aligns all text to the center */
 }
 
+/* Style the logo element */
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  height: 40vmin; /* Scales the logo based on the viewport size */
+  pointer-events: none; /* Disables mouse interactions with the logo */
 }
 
+/* Responsive styling for users who have not enabled reduced motion */
+/* Adds a spinning animation to the logo */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 20s linear; /* Infinite spin animation */
   }
 }
 
+/* Style the header section */
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #282c34; /* Dark gray background for contrast */
+  min-height: 100vh; /* Header fills the entire viewport height */
+  display: flex; /* Uses Flexbox for layout */
+  flex-direction: column; /* Arranges child elements in a column */
+  align-items: center; /* Horizontally centers the children */
+  justify-content: center; /* Vertically centers the children */
+  font-size: calc(10px + 2vmin); /* Responsive font size */
+  color: white; /* White text for readability */
 }
 
+/* Style the anchor links */
 .App-link {
-  color: #61dafb;
+  color: #61dafb; /* React's signature blue color for links */
 }
 
+/* Define the spinning animation for the logo */
+/* Rotates the logo in a 360-degree loop */
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    transform: rotate(0deg); /* Starting position: 0-degree rotation */
   }
   to {
-    transform: rotate(360deg);
+    transform: rotate(360deg); /* Ending position: 360-degree rotation */
   }
 }
+/*
+Purpose of the Code:
+1. General Styling:
+   • Centers the main content (.App) and makes it responsive to different screen sizes.
 
+2. Logo Animation:
+   • Animates the .App-logo with a smooth spinning motion for users without motion preferences.
 
+3. Header Layout:
+   • Uses a flexible layout (flexbox) to center content both horizontally and vertically within the viewport.
+
+4. Responsive Design:
+   • Dynamically adjusts the font size and ensures the layout scales based on the viewport dimensions.
+
+5. Aesthetic Customization:
+   • Applies colors and animations to enhance the user experience and align with the React brand style.
+*/
