@@ -1,6 +1,3 @@
-package com.ecom.netcart.repository;
-
-import java.util.List;
 package com.ecom.netcart.repository; // Package declaration
 
 import java.util.List; // Importing List interface
