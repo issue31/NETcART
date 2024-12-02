@@ -1,44 +1,67 @@
-import React, { useContext, useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
-import { CartContext } from "../context/CartContext";
-import axios from "axios";
+// Importing necessary libraries and components
+import React, { useContext, useState, useEffect } from "react"; // React library and hooks for state, context, and effect management
+import { useParams, Link } from "react-router-dom"; // useParams hook for accessing URL parameters and Link component for navigation
+import { CartContext } from "../context/CartContext"; // CartContext for managing cart state
+import axios from "axios"; // Axios library for making HTTP requests
 
+// Defining the SingleProduct component
 const SingleProduct = () => {
+  // Extracting productId from URL parameters
   const { productId } = useParams();
+  // State to store the product details
   const [product, setProduct] = useState(null);
+  // Creating an axios instance with a base URL
   const api = axios.create({
     baseURL: "http://localhost:8080",
   });
+  // Using the CartContext to access the addToCart function
   const { addToCart } = useContext(CartContext);
 
+  // useEffect hook to fetch product details when the component mounts
   useEffect(() => {
+    fetchProduct(); // Call fetchProduct function to load product details
+  }, []); // Empty dependency array ensures this runs only once when the component mounts
 
-    fetchProduct();
-  }, []);
-
+  /**
+   * Function to fetch product details from the backend
+   * Makes a GET request to the /findbyid endpoint with the productId
+   * Sets the product state with the fetched data
+   */
   const fetchProduct = async () => {
     try {
-      const response = await api.get(`/findbyid?pId=${productId}`); // Update the API endpoint to match your backend
-      setProduct(response.data);
+      const response = await api.get(`/findbyid?pId=${productId}`); // Fetch product details based on productId
+      setProduct(response.data); // Update product state with the fetched data
     } catch (error) {
-      console.error("Error fetching product:", error);
+      console.error("Error fetching product:", error); // Log any errors that occur during the fetch process
     }
   };
 
+  // Display a loading message while waiting for the product data to load
   if (!product) {
-    return <div>Loading...</div>; // You can show a loading message here while waiting for the product data to load.
+    return <div>Loading...</div>;
   }
+
+  /**
+   * Function to handle adding the product to the cart
+   * Calls the addToCart function from CartContext with the product details
+   */
   const handleAddToCart = () => {
-    console.log(product);
-    addToCart(product); // Assuming you're adding only one quantity, modify as needed
+    console.log(product); // Log the product details
+    addToCart(product); // Add the product to the cart
   };
+
+  /**
+   * Function to handle user logout
+   * Removes user data from local storage
+   */
   const clickHandleLogout = () => {
-    localStorage.removeItem("userData");
+    localStorage.removeItem("userData"); // Remove user data from local storage to log out the user
   };
+
   return (
     <div className="singleproduct-blue-theme">
-      {/*Navbar*/}
-      <nav class="navbar navbar-expand-md navbar-light homenav" >
+      {/* Navbar */}
+      <nav class="navbar navbar-expand-md navbar-light homenav">
         <div class="container">
           <Link class="navbar-brand" to="/">NetCart</Link>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -53,14 +76,12 @@ const SingleProduct = () => {
               <li class="nav-item">
                 <Link class="nav-link" to="/product">Products</Link>
               </li>
-
               <li class="nav-item">
                 <Link class="nav-link" to="/order">Order</Link>
               </li>
               <li class="nav-item">
                 <Link class="nav-link" to="/cart">Cart</Link>
               </li>
-
               <li class="nav-item">
                 <Link class="nav-link" to="/login">SignIn</Link>
               </li>
@@ -71,7 +92,8 @@ const SingleProduct = () => {
           </div>
         </div>
       </nav>
-      <div className="container mt-4" >
+      {/* Main content */}
+      <div className="container mt-4">
         <div className="card card-singleproduct" style={{ background: "#FFF7D4" }}>
           <img
             src={"https://tse1.mm.bing.net/th?id=OIP.IPKX1ZeXZbZuz9q0ssROvgHaEK&pid=Api&P=0&h=180"} // Replace this with the actual product image URL from your backend
@@ -88,9 +110,9 @@ const SingleProduct = () => {
           </Link>
         </div>
       </div>
-
     </div>
   );
 };
 
+// Exporting the SingleProduct component as the default export
 export default SingleProduct;
