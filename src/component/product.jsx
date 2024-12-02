@@ -1,48 +1,57 @@
+// Importing necessary libraries and components
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FaFilter, FaSearch } from "react-icons/fa";
 import { Form, FormControl, Button } from "react-bootstrap";
 
+// Defining the Product component
 const Product = () => {
+  // State to store the list of products
   const [products, setProducts] = useState([]);
+  // State to store the search input value
   const [searchValue, setSearchValue] = useState("");
 
+  // useEffect hook to fetch products when the component mounts
   useEffect(() => {
     fetchProducts();
   }, []);
 
+  // Function to fetch all products from the backend
   const fetchProducts = async () => {
     try {
       const response = await axios.get("http://localhost:8080/getallproduct");
-      setProducts(response.data);
+      setProducts(response.data); // Set the products state with the fetched data
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error fetching products:", error); // Log any errors
     }
   };
 
+  // Function to handle product search
   const handleSearch = async () => {
     try {
       const response = await axios.get(
         `http://localhost:8080/findproduct/${searchValue}`
       );
       if (Array.isArray(response.data)) {
-        setProducts(response.data);
+        setProducts(response.data); // Set the products state with the search results
       } else {
         setProducts([response.data]); // Wrap the single object in an array
       }
     } catch (error) {
-      console.log(error.response.data);
-      setProducts([]);
+      console.log(error.response.data); // Log any errors
+      setProducts([]); // Clear the products state if an error occurs
     }
   };
-  console.log("Products:", products);
+
+  // Function to handle user logout
   const clickHandleLogout = () => {
-    localStorage.removeItem("userData");
+    localStorage.removeItem("userData"); // Remove user data from local storage
   };
+
   return (
     <div className="product-blue-theme">
-      {/*Navbar*/}
+      {/* Navbar */}
       <nav className="navbar navbar-expand-md navbar-light homenav">
         <div className="container">
           <Link className="navbar-brand" to="/">
@@ -86,13 +95,16 @@ const Product = () => {
                   SignIn
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="btn nav-link" onClick={clickHandleLogout} to="/login">SignOut</Link>
+              <li className="nav-item">
+                <Link className="btn nav-link" onClick={clickHandleLogout} to="/login">
+                  SignOut
+                </Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
+      {/* Search and filter section */}
       <div
         className="container"
         style={{ marginTop: "15px", marginBottom: "15px" }}
@@ -100,7 +112,7 @@ const Product = () => {
         <div
           style={{
             backgroundColor: "light-goldenroad",
-            padding: "10px 20px 10px 20px",
+            padding: "10px 20px",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -134,6 +146,7 @@ const Product = () => {
           </div>
         </div>
       </div>
+      {/* Product list */}
       <div className="container mt-4">
         <h1 className="mb-4">Product Page</h1>
         <div className="row">
@@ -165,4 +178,5 @@ const Product = () => {
   );
 };
 
+// Exporting the Product component as the default export
 export default Product;
