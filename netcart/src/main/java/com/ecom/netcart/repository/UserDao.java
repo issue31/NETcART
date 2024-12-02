@@ -14,6 +14,8 @@ public interface UserDao extends JpaRepository<User, Integer> {
     // Method to find a User entity by its email
     User getEmail(String emailId);
 }
+
+
 /*Detailed Explanation:
 Package Declaration:
 
