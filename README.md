@@ -1,3 +1,27 @@
+NETcART/
+├── NETcART.sln
+├── src/
+│   ├── NETcART.Web/
+│   │   ├── Controllers/
+│   │   ├── Models/
+│   │   ├── Views/
+│   │   ├── wwwroot/
+│   │   ├── appsettings.json
+│   │   └── Program.cs
+│   ├── NETcART.Core/
+│   │   ├── Entities/
+│   │   ├── Interfaces/
+│   │   └── Services/
+│   └── NETcART.Infrastructure/
+│       ├── Data/
+│       ├── Repositories/
+│       └── Migrations/
+├── tests/
+│   ├── NETcART.Tests/
+│   │   ├── UnitTests/
+│   │   └── IntegrationTests/
+└── README.md
+
 POM.XML:-
 
 Documentation Breakdown:
