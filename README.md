@@ -1,4 +1,4 @@
-# Ths frontend part of the project is in master1 branch while the backend part is in master branch.
+# Ths frontend part of the project is in master branch while the backend part is in master1 branch.
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
